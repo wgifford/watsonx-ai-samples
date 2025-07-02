@@ -7600,8 +7600,8 @@ a.anchor-link {
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Successfully installed wget-3.2
-Successfully installed contourpy-1.3.2 cycler-0.12.1 fonttools-4.58.0 kiwisolver-1.4.8 matplotlib-3.10.3 numpy-2.2.6 pillow-11.2.1 pyparsing-3.2.3
-Successfully installed anyio-4.9.0 certifi-2025.4.26 charset-normalizer-3.4.2 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 ibm-cos-sdk-2.14.1 ibm-cos-sdk-core-2.14.1 ibm-cos-sdk-s3transfer-2.14.1 ibm-watsonx-ai-1.3.20 idna-3.10 jmespath-1.0.1 lomond-0.3.3 pandas-2.2.3 pytz-2025.2 requests-2.32.2 sniffio-1.3.1 tabulate-0.9.0 typing_extensions-4.13.2 tzdata-2025.2 urllib3-2.4.0
+Successfully installed contourpy-1.3.2 cycler-0.12.1 fonttools-4.58.4 kiwisolver-1.4.8 matplotlib-3.10.3 numpy-2.3.1 pillow-11.2.1 pyparsing-3.2.3
+Successfully installed anyio-4.9.0 certifi-2025.6.15 charset_normalizer-3.4.2 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 ibm-cos-sdk-2.14.2 ibm-cos-sdk-core-2.14.2 ibm-cos-sdk-s3transfer-2.14.2 ibm-watsonx-ai-1.3.26 idna-3.10 jmespath-1.0.1 lomond-0.3.3 pandas-2.2.3 pytz-2025.2 requests-2.32.4 sniffio-1.3.1 tabulate-0.9.0 typing_extensions-4.14.0 tzdata-2025.2 urllib3-2.5.0
 </pre>
 </div>
 </div>
@@ -7798,7 +7798,7 @@ Successfully installed anyio-4.9.0 certifi-2025.4.26 charset-normalizer-3.4.2 h1
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Space has been created. However some background setup activities might still be on-going. Check for 'status' field in the response. It has to show 'active' before space can be used. If it's not 'active', you can monitor the state with a call to spaces.get_details(space_id). Alternatively, use background_mode=False when calling client.spaces.store().
 
-export space_id: 5bb7242f-ee83-4526-8b8e-01e12d665e24
+export space_id: 6ab1d2ce-e485-4184-98db-e9c66721cf1d
 
 </pre>
 </div>
@@ -7847,7 +7847,7 @@ export space_id: 5bb7242f-ee83-4526-8b8e-01e12d665e24
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Space has been created. However some background setup activities might still be on-going. Check for 'status' field in the response. It has to show 'active' before space can be used. If it's not 'active', you can monitor the state with a call to spaces.get_details(space_id). Alternatively, use background_mode=False when calling client.spaces.store().
 
-import space_id: 657787c9-9b1c-470e-a979-a9abd071bbe1
+import space_id: 1b6f00b0-e015-4d6c-9ba5-4641c56039a4
 
 </pre>
 </div>
@@ -7877,15 +7877,10 @@ import space_id: 657787c9-9b1c-470e-a979-a9abd071bbe1
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">wget</span>
 
-<span class="n">data_dir</span> <span class="o">=</span> <span class="s2">"MNIST_DATA"</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
-
-<span class="n">model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">"mnist_keras.h5.tgz"</span><span class="p">)</span>
+<span class="n">model_path</span> <span class="o">=</span> <span class="s2">"mnist-keras-model.h5.zip"</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">model_path</span><span class="p">):</span>
     <span class="n">wget</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
-        <span class="s2">"https://github.com/IBM/watsonx-ai-samples/raw/master/cpd5.2/models/keras/mnist_keras.h5.tgz"</span><span class="p">,</span>
-        <span class="n">out</span><span class="o">=</span><span class="n">data_dir</span><span class="p">,</span>
+        <span class="s2">"https://github.com/IBM/watsonx-ai-samples/raw/master/cpd5.2/models/keras/mnist-keras-model.h5.zip"</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -7993,7 +7988,7 @@ import space_id: 657787c9-9b1c-470e-a979-a9abd071bbe1
 <div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sofware_spec_id</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">software_specifications</span><span class="o">.</span><span class="n">get_id_by_name</span><span class="p">(</span><span class="s2">"runtime-24.1-py3.11"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">software_spec_id</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">software_specifications</span><span class="o">.</span><span class="n">get_id_by_name</span><span class="p">(</span><span class="s2">"runtime-25.1-py3.12"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8011,8 +8006,8 @@ import space_id: 657787c9-9b1c-470e-a979-a9abd071bbe1
 
 <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">client</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">ModelMetaNames</span><span class="o">.</span><span class="n">NAME</span><span class="p">:</span> <span class="s2">"External Keras model"</span><span class="p">,</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">ModelMetaNames</span><span class="o">.</span><span class="n">TYPE</span><span class="p">:</span> <span class="s2">"tensorflow_2.14"</span><span class="p">,</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">ModelMetaNames</span><span class="o">.</span><span class="n">SOFTWARE_SPEC_ID</span><span class="p">:</span> <span class="n">sofware_spec_id</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">ModelMetaNames</span><span class="o">.</span><span class="n">TYPE</span><span class="p">:</span> <span class="s2">"tensorflow_2.18"</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">ModelMetaNames</span><span class="o">.</span><span class="n">SOFTWARE_SPEC_ID</span><span class="p">:</span> <span class="n">software_spec_id</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">published_model</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">store_model</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_path</span><span class="p">,</span> <span class="n">meta_props</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
@@ -8060,10 +8055,10 @@ import space_id: 657787c9-9b1c-470e-a979-a9abd071bbe1
 <pre>{
   "metadata": {
     "name": "External Keras model",
-    "space_id": "5bb7242f-ee83-4526-8b8e-01e12d665e24",
-    "resource_key": "e18cd9af-ad49-4101-b116-6295bcf8810a",
-    "id": "819b311b-9027-4235-a9b8-f03c51028ea9",
-    "created_at": "2025-05-21T09:49:12Z",
+    "space_id": "6ab1d2ce-e485-4184-98db-e9c66721cf1d",
+    "resource_key": "4e684e2a-fd59-40e0-b52a-0de88e850af4",
+    "id": "c1055bff-f931-4052-87c5-e66a73de2180",
+    "created_at": "2025-07-01T07:11:15Z",
     "rov": {
       "member_roles": {
         "1000331001": {
@@ -8078,9 +8073,9 @@ import space_id: 657787c9-9b1c-470e-a979-a9abd071bbe1
   },
   "entity": {
     "software_spec": {
-      "id": "45f12dfe-aa78-5b8d-9f38-0ee223c47309"
+      "id": "f47ae1c3-198e-5718-b59d-2ea471561e9e"
     },
-    "type": "tensorflow_2.14"
+    "type": "tensorflow_2.18"
   }
 }
 </pre>
@@ -8106,7 +8101,7 @@ import space_id: 657787c9-9b1c-470e-a979-a9abd071bbe1
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>space_id is automatically picked up from client.set.default_space() api call before</p>
+<p>The <code>space_id</code> is automatically picked up from <code>client.set.default_space()</code> API call before</p>
 </div>
 </div>
 </div>
@@ -8224,15 +8219,15 @@ start(meta_props: 'dict[str, str | bool | list]', space_id: 'str | None' = None,
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>client.export_assets has these apis. For any help on these apis, type 'help(api_name)' in your notebook
-Example: help(client.export_assets.start), help(client.export_assets.get_details)</p>
+<p><code>client.export_assets</code> has these APIs. For any help on these apis, type <code>help(api_name)</code> in your notebook
+Example: <code>help(client.export_assets.start)</code>, <code>help(client.export_assets.get_details)</code></p>
 <ol>
-<li>client.export_assets.start: This starts the export job. export job is asynchronously executed</li>
-<li>client.export_assets.get_details: Given export_id and corresponding space_id/project_id, this gives the export job details. Usually used for monitoring the export job submitted with start api</li>
-<li>client.export_assets.list: Prints summary of all the export jobs</li>
-<li>client.export_assets.get_exported_content: Downloads the exported content. This information will be used by the import process</li>
-<li>client.export_assets.delete: Deletes the given export job</li>
-<li>client.export_assets.cancel: Cancels the given export job if running</li>
+<li><code>client.export_assets.start</code>: This starts the export job. Export job is asynchronously executed</li>
+<li><code>client.export_assets.get_details</code>: Given <code>export_id</code> and corresponding <code>space_id</code> / <code>project_id</code>, this gives the export job details. Usually used for monitoring the export job submitted with start API</li>
+<li><code>client.export_assets.list</code>: Prints summary of all the export jobs</li>
+<li><code>client.export_assets.get_exported_content</code>: Downloads the exported content. This information will be used by the import process</li>
+<li><code>client.export_assets.delete</code>: Deletes the given export job</li>
+<li><code>client.export_assets.cancel</code>: Cancels the given export job if running</li>
 </ol>
 </div>
 </div>
@@ -8290,13 +8285,13 @@ Refer to the help api above to see different usages and details</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>export job with id 0c162aa9-f2a5-4342-a6d8-ec61d2744e03 has started. Monitor status using client.export_assets.get_details api. Check 'help(client.export_assets.get_details)' for details on the api usage
+<pre>export job with id 941bdf02-a9ca-4b3c-a48b-5a986eeeb9a3 has started. Monitor status using client.export_assets.get_details api. Check 'help(client.export_assets.get_details)' for details on the api usage
 {
   "entity": {
     "assets": {
       "all_assets": false,
       "asset_ids": [
-        "819b311b-9027-4235-a9b8-f03c51028ea9"
+        "c1055bff-f931-4052-87c5-e66a73de2180"
       ]
     },
     "format": "json",
@@ -8306,12 +8301,12 @@ Refer to the help api above to see different usages and details</p>
     }
   },
   "metadata": {
-    "created_at": "2025-05-21T09:51:58.631Z",
+    "created_at": "2025-07-01T07:12:52.323Z",
     "creator_id": "1000331001",
-    "id": "0c162aa9-f2a5-4342-a6d8-ec61d2744e03",
+    "id": "941bdf02-a9ca-4b3c-a48b-5a986eeeb9a3",
     "name": "export_model",
-    "space_id": "5bb7242f-ee83-4526-8b8e-01e12d665e24",
-    "url": "/v2/asset_exports/0c162aa9-f2a5-4342-a6d8-ec61d2744e03"
+    "space_id": "6ab1d2ce-e485-4184-98db-e9c66721cf1d",
+    "url": "/v2/asset_exports/941bdf02-a9ca-4b3c-a48b-5a986eeeb9a3"
   }
 }
 </pre>
@@ -8368,13 +8363,14 @@ Refer to the help api above to see different usages and details</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>completed
+<pre>running
+completed
 {
   "entity": {
     "assets": {
       "all_assets": false,
       "asset_ids": [
-        "819b311b-9027-4235-a9b8-f03c51028ea9"
+        "c1055bff-f931-4052-87c5-e66a73de2180"
       ]
     },
     "format": "json",
@@ -8384,13 +8380,13 @@ Refer to the help api above to see different usages and details</p>
     }
   },
   "metadata": {
-    "created_at": "2025-05-21T09:51:58.631Z",
+    "created_at": "2025-07-01T07:12:52.323Z",
     "creator_id": "1000331001",
-    "id": "0c162aa9-f2a5-4342-a6d8-ec61d2744e03",
+    "id": "941bdf02-a9ca-4b3c-a48b-5a986eeeb9a3",
     "name": "export_model",
-    "space_id": "5bb7242f-ee83-4526-8b8e-01e12d665e24",
-    "updated_at": "2025-05-21T09:52:02.911Z",
-    "url": "/v2/asset_exports/0c162aa9-f2a5-4342-a6d8-ec61d2744e03"
+    "space_id": "6ab1d2ce-e485-4184-98db-e9c66721cf1d",
+    "updated_at": "2025-07-01T07:13:01.088Z",
+    "url": "/v2/asset_exports/941bdf02-a9ca-4b3c-a48b-5a986eeeb9a3"
   }
 }
 </pre>
@@ -8442,8 +8438,8 @@ Refer to the help api above to see different usages and details</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Successfully saved export content to file: 'EXPORT_DATA/exported_content_dcf11093-d274-4af8-8e9e-e929a78f860d.zip'
-EXPORT_DATA/exported_content_dcf11093-d274-4af8-8e9e-e929a78f860d.zip
+<pre>Successfully saved export content to file: 'EXPORT_DATA/exported_content_bb6e0e54-5513-43da-b03d-db12a243450a.zip'
+EXPORT_DATA/exported_content_bb6e0e54-5513-43da-b03d-db12a243450a.zip
 </pre>
 </div>
 </div>
@@ -8468,14 +8464,14 @@ EXPORT_DATA/exported_content_dcf11093-d274-4af8-8e9e-e929a78f860d.zip
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>client.import_assets has these apis. For any help on these apis, type 'help(api_name)' in your notebook
-Example: help(client.import_assets.start), help(client.import_assets.get_details)</p>
+<p><code>client.import_assets</code> has these APIs. For any help on these APIs, type <code>help(api_name)</code> in your notebook.
+Example: <code>help(client.import_assets.start)</code>, <code>help(client.import_assets.get_details)</code></p>
 <ol>
-<li>client.import_assets.start: This starts the import job. import job is asynchronously executed</li>
-<li>client.import_assets.get_details: Given import_id and corresponding space_id/project_id, this gives the import job details. Usually used for monitoring the import job submitted with start api</li>
-<li>client.import_assets.list: Prints summary of all the import jobs</li>
-<li>client.import_assets.delete: Deletes the given import job</li>
-<li>client.import_assets.cancel: Cancels the given import job if running</li>
+<li><code>client.import_assets.start</code>: This starts the import job. Import job is asynchronously executed</li>
+<li><code>client.import_assets.get_details</code>: Given <code>import_id</code> and corresponding <code>space_id</code> / <code>project_id</code>, this gives the import job details. Usually used for monitoring the import job submitted with start API</li>
+<li><code>client.import_assets.list</code>: Prints summary of all the import jobs</li>
+<li><code>client.import_assets.delete</code>: Deletes the given import job</li>
+<li><code>client.import_assets.cancel</code>: Cancels the given import job if running</li>
 </ol>
 </div>
 </div>
@@ -8517,7 +8513,7 @@ Example: help(client.import_assets.start), help(client.import_assets.get_details
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>import job with id d3d29ba4-2a95-44d6-b5ff-3c7d79353564 has started. Monitor status using client.import_assets.get_details api. Check 'help(client.import_assets.get_details)' for details on the api usage
+<pre>import job with id 258da85d-cf6f-40cf-8871-76f80064d961 has started. Monitor status using client.import_assets.get_details api. Check 'help(client.import_assets.get_details)' for details on the api usage
 {
   "entity": {
     "format": "json",
@@ -8527,11 +8523,11 @@ Example: help(client.import_assets.start), help(client.import_assets.get_details
     }
   },
   "metadata": {
-    "created_at": "2025-05-21T09:53:46.302Z",
+    "created_at": "2025-07-01T07:14:24.839Z",
     "creator_id": "1000331001",
-    "id": "d3d29ba4-2a95-44d6-b5ff-3c7d79353564",
-    "space_id": "657787c9-9b1c-470e-a979-a9abd071bbe1",
-    "url": "/v2/asset_imports/d3d29ba4-2a95-44d6-b5ff-3c7d79353564"
+    "id": "258da85d-cf6f-40cf-8871-76f80064d961",
+    "space_id": "1b6f00b0-e015-4d6c-9ba5-4641c56039a4",
+    "url": "/v2/asset_imports/258da85d-cf6f-40cf-8871-76f80064d961"
   }
 }
 </pre>
@@ -8599,12 +8595,12 @@ completed
     }
   },
   "metadata": {
-    "created_at": "2025-05-21T09:53:46.302Z",
+    "created_at": "2025-07-01T07:14:24.839Z",
     "creator_id": "1000331001",
-    "id": "d3d29ba4-2a95-44d6-b5ff-3c7d79353564",
-    "space_id": "657787c9-9b1c-470e-a979-a9abd071bbe1",
-    "updated_at": "2025-05-21T09:53:52.768Z",
-    "url": "/v2/asset_imports/d3d29ba4-2a95-44d6-b5ff-3c7d79353564"
+    "id": "258da85d-cf6f-40cf-8871-76f80064d961",
+    "space_id": "1b6f00b0-e015-4d6c-9ba5-4641c56039a4",
+    "updated_at": "2025-07-01T07:14:33.640Z",
+    "url": "/v2/asset_imports/258da85d-cf6f-40cf-8871-76f80064d961"
   }
 }
 </pre>
@@ -8658,7 +8654,7 @@ completed
 List of models:
 
 
-model id for deployment: 9ae2e237-a0db-4c12-b3e4-99a1b33d28ac
+model id for deployment: 16ed9c67-8daa-4ca2-a107-bcc9a0c9175e
 </pre>
 </div>
 </div>
@@ -8722,8 +8718,8 @@ model id for deployment: 9ae2e237-a0db-4c12-b3e4-99a1b33d28ac
 <tbody>
 <tr>
 <th>0</th>
-<td>d3d29ba4-2a95-44d6-b5ff-3c7d79353564</td>
-<td>2025-05-21T09:53:46.302Z</td>
+<td>258da85d-cf6f-40cf-8871-76f80064d961</td>
+<td>2025-07-01T07:14:24.839Z</td>
 <td>completed</td>
 </tr>
 </tbody>
@@ -8792,9 +8788,9 @@ model id for deployment: 9ae2e237-a0db-4c12-b3e4-99a1b33d28ac
 <tbody>
 <tr>
 <th>0</th>
-<td>0c162aa9-f2a5-4342-a6d8-ec61d2744e03</td>
+<td>941bdf02-a9ca-4b3c-a48b-5a986eeeb9a3</td>
 <td>export_model</td>
-<td>2025-05-21T09:51:58.631Z</td>
+<td>2025-07-01T07:12:52.323Z</td>
 <td>completed</td>
 </tr>
 </tbody>
@@ -8870,19 +8866,19 @@ model id for deployment: 9ae2e237-a0db-4c12-b3e4-99a1b33d28ac
 
 ######################################################################################
 
-Synchronous deployment creation for id: '9ae2e237-a0db-4c12-b3e4-99a1b33d28ac' started
+Synchronous deployment creation for id: '16ed9c67-8daa-4ca2-a107-bcc9a0c9175e' started
 
 ######################################################################################
 
 
 initializing
 Note: online_url is deprecated and will be removed in a future release. Use serving_urls instead.
-.......................................
+...........................
 ready
 
 
 -----------------------------------------------------------------------------------------------
-Successfully finished deployment creation, deployment_id='6015e036-6f9c-4bf1-a8e4-97e1fd6cdf04'
+Successfully finished deployment creation, deployment_id='22f8e767-9589-4b82-b6ba-e9e69fb6e6a5'
 -----------------------------------------------------------------------------------------------
 
 
@@ -8993,10 +8989,10 @@ Successfully finished deployment creation, deployment_id='6015e036-6f9c-4bf1-a8e
 <tbody>
 <tr>
 <th>0</th>
-<td>6015e036-6f9c-4bf1-a8e4-97e1fd6cdf04</td>
+<td>22f8e767-9589-4b82-b6ba-e9e69fb6e6a5</td>
 <td>Deployment of external Keras model</td>
 <td>ready</td>
-<td>2025-05-21T09:54:12.341Z</td>
+<td>2025-07-01T07:14:48.232Z</td>
 <td>model</td>
 <td>supported</td>
 <td></td>
@@ -9130,8 +9126,8 @@ Successfully finished deployment creation, deployment_id='6015e036-6f9c-4bf1-a8e
 <div class="jp-InputPrompt jp-InputArea-prompt">In [31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">score_0</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">score_1</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">score_0</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">score_1</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -9201,65 +9197,33 @@ Successfully finished deployment creation, deployment_id='6015e036-6f9c-4bf1-a8e
   "predictions": [
     {
       "fields": [
-        "prediction",
-        "prediction_classes",
-        "probability"
+        "prediction"
       ],
-      "id": "dense_2",
+      "id": "y_hat",
       "values": [
         [
-          [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            1.0,
-            0.0,
-            0.0
-          ],
-          7,
-          [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            1.0,
-            0.0,
-            0.0
-          ]
+          2.1161436052352656e-06,
+          9.53357170985214e-10,
+          4.728389346730921e-10,
+          3.943275572737548e-08,
+          0.00011951127089560032,
+          1.438263979025578e-07,
+          2.1252301252161487e-08,
+          0.9995545744895935,
+          8.875564958543691e-07,
+          0.0003227672423236072
         ],
         [
-          [
-            0.0,
-            0.0,
-            1.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          2,
-          [
-            0.0,
-            0.0,
-            1.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ]
+          0.021077046170830727,
+          0.1209486722946167,
+          0.8552001714706421,
+          0.0012876029359176755,
+          4.0436454582959414e-05,
+          0.0004892426659353077,
+          0.00048998644342646,
+          9.553693234920502e-05,
+          0.00018569448729977012,
+          0.00018568598898127675
         ]
       ]
     }
@@ -9267,6 +9231,56 @@ Successfully finished deployment creation, deployment_id='6015e036-6f9c-4bf1-a8e
 }
 </pre>
 </div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">"predictions"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">"values"</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">prediction</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Digit probability"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Digit"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Probability"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedImage jp-OutputArea-output" tabindex="0">
+<img alt="No description has been provided for this image" class="" src="data:image/png;base64,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HK9IiHOyMyz3zTffSMuWLQPdDAAAcAqys7Pl7LPPrvB2gtBJFBUVyZ49e6Rhw4YSEhIibqSpV8OafrMbNWokXkG7axftrl20u3bR7tqV64F2a7w5cuSIxMXFSZ06FVcCMTR2EvrmVZYk3UR/GN36A1kZ2l27aHftot21i3bXrkYub3dUVNRJz6FYGgAAWIsgBAAArEUQCgIREREyefJk86+X0O7aRbtrF+2uXbS7dkV4tN3loVgaAABYix4hAABgLYIQAACwFkEIAABYiyAEAACsRRDyuNmzZ0t8fLxERkZKz549Ze3ateJ2q1evlmHDhpnVPnW17oULF4rbTZ8+XS666CKzwnizZs1k+PDhsmPHDnG7Z599Vjp37uxf9KxXr17y3nvvidfMmDHD/Kzcfffd4mZTpkwx7Sy+dejQQbxg9+7dctNNN8lZZ50l9erVkwsvvFDWr18vbqe//0q/57qNGTNG3KqwsFAefPBBOeecc8x73bZtW3nkkUdOek0sNzhy5Ij5/7B169am7ZdccomsW7dOvIwg5GHp6ekyYcIEM4Vx48aNkpCQIElJSZKTkyNulpeXZ9qqIc4rVq1aZX6xrlmzRt5//305fvy4/PznPzevxc10VXQNERs2bDAfagMGDJCrrrpKtm3bJl6hv2T/8pe/mEDnBRdccIF8++23/u1f//qXuN3BgwflZz/7mdStW9cE5c8//1yeeOIJady4sXjh56P4+63/f6rrrrtO3OqPf/yj+SPlmWeekS+++MLsz5w5U55++mlxu9tvv928xy+99JJs3brV/B4cOHCgCdKepdPn4U2JiYnOmDFj/PuFhYVOXFycM336dMcr9EfwnXfecbwmJyfHtH3VqlWO1zRu3Nh5/vnnHS84cuSI065dO+f99993+vbt64wfP95xs8mTJzsJCQmO1/z+9793Lr30UicY6M9I27ZtnaKiIsethg4d6tx6660ljl1zzTXOiBEjHDc7duyYExoa6ixevLjE8W7dujkPPPCA41X0CHlUQUGB+Stfk3jx66LpfkZGRkDbZoPDhw+bf5s0aSJeod3xr7/+uunF0iEyL9BeuKFDh5b4OXe7nTt3mmHfNm3ayIgRI+Trr78Wt/v73/8uPXr0ML0oOvTbtWtXee6558SLvxdffvllufXWW117kWylw0krVqyQL7/80uxv3rzZ9BwOHjxY3OzEiRPm94iWYhSnQ2Re6PmsCBdd9agDBw6YH8iYmJgSx3V/+/btAWuXDYqKiswYuQ4ldOrUSdxOu681+Pz444/SoEEDeeedd6Rjx47idhradMjXS/UHWqe3YMECad++vRmmeeihh6R3797y2Wefmfoyt/rvf/9rhmp0qP3+++837/m4ceMkPDxcUlJSxCu03vDQoUMycuRIcbPU1FRz9XatHwsNDTW/y6dNm2aCs5s1bNjQ/C7Reqbzzz/ffN689tpr5o/vc889V7yKIAScQi+FfrB55S8g/VDetGmT6cV66623zAeb1jy5OQxlZ2fL+PHjTS1C6b8+3az4X/Ra06TBSItK33jjDbntttvEzeFee4QeffRRs689QvozPmfOHE8FoRdeeMF8D7RHzs305+GVV16RV1991dSU6f+f+seVttvt7/dLL71ketxatGhhQly3bt3khhtuMCMUXkUQ8qjo6GjzQ7hv374Sx3U/NjY2YO0KdmPHjpXFixebmW9aiOwF+le976+17t27m7/2n3zySVOA7Fb6S1WL/vWXrI/+1azvuxaY5ufnm59/tzvzzDPlvPPOk8zMTHGz5s2blwnG+hf/3/72N/GKr776Sj744AN5++23xe1++9vfml6hX/7yl2ZfZ+hp+3V2qtuDUNu2bc0fUjrErr1a+rOTnJxshoK9ihohj9IPN/1Q03Hm4n/V6b5X6j+8ROu6NQTpsNKHH35opr16lf6caJBws8suu8wM6elfyr5Neyx06EC/9kIIUkePHpX//Oc/5sPCzXSYt/RyEFq/or1ZXjF//nxT36Q1ZW537NgxU9NZnP5M6/+bXlG/fn3zc60zDpctW2Zmo3oVPUIepuP5+teDfkAkJiZKWlqaSemjRo0St384FP8LOSsry3y4aeFxq1atxK3DYdqNvWjRIjNOvnfvXnM8KirKFAq61cSJE81Qgb6vuv6HvoaPPvrI/OJyM32PS9df6S9eXePGzXVZ9913n1kjSwPEnj17zNIW+gGnQwduds8995gCXh0au/766816ZHPnzjWbF2iA0CCkvw/Dwtz/saY/I1oTpP9f6tDYp59+KrNmzTJDTm63bNky84ehDrnr73Ht3dJaJ7d/7lQq0NPWcHqefvppp1WrVk54eLiZTr9mzRrH7VauXGmmnpfeUlJSHLcqr726zZ8/33EznaLbunVr8/PRtGlT57LLLnOWL1/ueJEXps8nJyc7zZs3N+93ixYtzH5mZqbjBe+++67TqVMnJyIiwunQoYMzd+5cxyuWLVtm/n/csWOH4wW5ubnmZ1l/d0dGRjpt2rQx08/z8/Mdt0tPTzft1Z/x2NhYs4TLoUOHHC8L0f8EOowBAAAEAjVCAADAWgQhAABgLYIQAACwFkEIAABYiyAEAACsRRACAADWIggBAABrEYQAWCMkJMRcobyqdBVuvY9e0RxAcCIIAfC8kSNHmsCiW926dSUmJkYuv/xymTdvXonrN3377bclrhB/MnrZCb2PXkpFLViwwFxIFUDwIAgBCAqDBg0yoWXXrl3y3nvvSf/+/WX8+PFyxRVXyIkTJ8w5sbGxEhER8ZMubqz30YAFIDgRhAAEBQ04GlpatGgh3bp1k/vvv99cJFdDkfbklDc09vHHH0uXLl0kMjLSXLxYb9Nz9CLApYfG9Gu9sOThw4f9vU9TpkwJ2OsFUD0IQgCC1oABAyQhIUHefvvtMrfl5uaaq4BfeOGFsnHjRnnkkUfk97//faXDZGlpadKoUSPT86SbXm0egLeFBboBAFCTOnToIFu2bClz/NVXXzW9Os8995zpEerYsaPs3r1bRo8eXeEwmdYK6X205wlAcKBHCEBQcxyn3BqfHTt2SOfOnU0I8klMTKzl1gEINIIQgKD2xRdfyDnnnBPoZgBwKYIQgKD14YcfytatW+Xaa68tc1v79u3Nbfn5+f5j69atq/TxdHissLCwRtoKIDAIQgCCggaavXv3mjofLX5+9NFH5aqrrjLT52+55ZYy5994441mjaE77rjD9BotW7ZMHn/8cXNbRdPl4+Pj5ejRo7JixQo5cOCAHDt2rMZfF4CaRRACEBSWLl0qzZs3N2FF1xRauXKlPPXUU2YKfWhoaJnzdfbXu+++a6bK6xT6Bx54QCZNmmRuK143VHrm2K9//WtJTk6Wpk2bysyZM2v8dQGoWSGOVhICAOSVV17xrxVUr169QDcHQC1g+jwAa7344ovSpk0bswjj5s2bzTpC119/PSEIsAhBCIC1tKZIh8P0Xx1Wu+6662TatGmBbhaAWsTQGAAAsBbF0gAAwFoEIQAAYC2CEAAAsBZBCAAAWIsgBAAArEUQAgAA1iIIAQAAaxGEAACAtQhCAABAbPV/JlxLwrWTBYsAAAAASUVORK5CYII="/>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedImage jp-OutputArea-output" tabindex="0">
+<img alt="No description has been provided for this image" class="" src="data:image/png;base64,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BOmQpdPnEZqSk5Od9PR0/355ebkTHx/vzJkzxwkV+iP4xhtvOKGmsLDQtH39+vVOqGnfvr3zhz/8wQkFx44dc84//3zn3XffdYYNG+ZMmzbNcbPMzEwnKSnJCTW//vWvncsuu8zxAv0Z6dmzp1NRUeG41dixY51bb721yrHrr7/emThxouNmx48fd8LDw5233nqryvH+/fs7Dz74oBOq6BEKUWVlZeavfE3ila+Lpvu5ublBbZsNjh49av7t0KGDhArtjn/11VdNL5YOkYUC7YUbO3ZslZ9zt/v888/NsG+PHj1k4sSJ8uWXX4rb/fnPf5aBAweaXhQd+r344ovl+eefl1D8vfjSSy/Jrbfe6tqLZCsdTlq7dq189tlnZn/79u2m53DMmDHiZidPnjS/R7QUozIdIguFns9AuOhqiDp8+LD5gYyNja1yXPd37doVtHbZoKKiwoyR61BCnz59xO20+1qDz/fffy+tW7eWN954QxITE8XtNLTpkG8o1R9ond7SpUulV69eZpjm4YcflqFDh8rHH39s6svc6h//+IcZqtGh9gceeMC853fddZdERERIWlqahAqtNzxy5IhMmjRJ3CwjI8NcvV3rx8LDw83v8tmzZ5vg7GZt2rQxv0u0nulHP/qR+bx55ZVXzB/f5513noQqghBwGr0U+sEWKn8B6Yfytm3bTC/WihUrzAeb1jy5OQzt27dPpk2bZmoRqv/16WaV/6LXmiYNRlpU+tprr8ltt90mbg732iP02GOPmX3tEdKf8YULF4ZUEHrhhRfM90B75NxMfx5efvllWb58uakp0/8/9Y8rbbfb3+8XX3zR9Lh17tzZhLj+/fvLT3/6UzNCEaoIQiEqJibG/BAePHiwynHdj4uLC1q7vG7q1Kny1ltvmZlvWogcCvSvet9fawMGDDB/7T/11FOmANmt9JeqFv3rL1kf/atZ33ctMC0tLTU//27Xrl07ueCCCyQ/P1/crFOnTjWCsf7F/6c//UlCxRdffCHvvfeevP766+J2999/v+kV+slPfmL2dYaetl9np7o9CPXs2dP8IaVD7NqrpT87qampZig4VFEjFKL0w00/1HScufJfdbofKvUfoUTrujUE6bDS+++/b6a9hir9OdEg4WajRo0yQ3r6l7Jv0x4LHTrQr0MhBKni4mL5+9//bj4s3EyHeasvB6H1K9qbFSqWLFli6pu0psztjh8/bmo6K9Ofaf1/M1S0atXK/FzrjMM1a9aY2aihih6hEKbj+frXg35AJCcnS1ZWlknpkydPFrd/OFT+C3nPnj3mw00Lj7t16yZuHQ7TbuyVK1eacfIDBw6Y49HR0aZQ0K1mzJhhhgr0fdX1P/Q1fPDBB+YXl5vpe1y9/kp/8eoaN26uy7rvvvvMGlkaIAoKCszSFvoBp0MHbnbPPfeYAl4dGrvpppvMemSLFi0yWyjQAKFBSH8fNm/u/o81/RnRmiD9/1KHxv72t7/J/PnzzZCT261Zs8b8YahD7vp7XHu3tNbJ7Z87dQr2tDWcmWeeecbp1q2bExERYabTb9y40XG7devWmann1be0tDTHrWprr25Llixx3Eyn6Hbv3t38fJx99tnOqFGjnHfeeccJRaEwfT41NdXp1KmTeb87d+5s9vPz851Q8Oabbzp9+vRxIiMjnd69ezuLFi1yQsWaNWvM/4+7d+92QkFRUZH5Wdbf3VFRUU6PHj3M9PPS0lLH7bKzs0179Wc8Li7OLOFy5MgRJ5SF6X+CHcYAAACCgRohAABgLYIQAACwFkEIAABYiyAEAACsRRACAADWIggBAABrEYQAAIC1CEIArBEWFmauUF5fugq33kevaA7AmwhCAELepEmTTGDRrUWLFhIbGytXXHGFLF68uMr1m77++usqV4g/Fb3shN5HL6Wili5dai6kCsA7CEIAPOHKK680oWXv3r3y9ttvy4gRI2TatGly9dVXy8mTJ805cXFxEhkZ+YMubqz30YAFwJsIQgA8QQOOhpbOnTtL//795YEHHjAXydVQpD05tQ2N/fWvf5V+/fpJVFSUuXix3qbn6EWAqw+N6dd6YcmjR4/6e59mzZoVtNcLoGEQhAB41siRIyUpKUlef/31GrcVFRWZq4D37dtXtm7dKo888oj8+te/rnOYLCsrS9q2bWt6nnTTq80DCG3Ng90AAGhMvXv3lh07dtQ4vnz5ctOr8/zzz5seocTERNm/f79MmTIl4DCZ1grpfbTnCYA30CMEwNMcx6m1xmf37t1y0UUXmRDkk5yc3MStAxBsBCEAnvbpp5/KueeeG+xmAHApghAAz3r//fflo48+khtuuKHGbb169TK3lZaW+o/l5eXV+Xg6PFZeXt4obQUQHAQhAJ6ggebAgQOmzkeLnx977DG59tprzfT5W265pcb5P/vZz8waQ7fffrvpNVqzZo088cQT5rZA0+UTEhKkuLhY1q5dK4cPH5bjx483+usC0LgIQgA8YfXq1dKpUycTVnRNoXXr1snTTz9tptCHh4fXOF9nf7355ptmqrxOoX/wwQdl5syZ5rbKdUPVZ4798pe/lNTUVDn77LNl3rx5jf66ADSuMEcrCQEA8vLLL/vXCmrZsmWwmwOgCTB9HoC1li1bJj169DCLMG7fvt2sI3TTTTcRggCLEIQAWEtrinQ4TP/VYbUJEybI7Nmzg90sAE2IoTEAAGAtiqUBAIC1CEIAAMBaBCEAAGAtghAAALAWQQgAAFiLIAQAAKxFEAIAANYiCAEAAGsRhAAAgNjqfwGg+X+fpX83dgAAAABJRU5ErkJggg=="/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>As you can see, predicted values are the same one as displayed above from test dataset.</p>
 </div>
 </div>
 </div>
@@ -9287,7 +9301,7 @@ Successfully finished deployment creation, deployment_id='6015e036-6f9c-4bf1-a8e
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">export_assets</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">export_job_id</span><span class="p">,</span> <span class="n">space_id</span><span class="o">=</span><span class="n">export_space_id</span><span class="p">)</span>
@@ -9315,7 +9329,7 @@ DELETED
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[35]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[36]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>'SUCCESS'</pre>
 </div>
