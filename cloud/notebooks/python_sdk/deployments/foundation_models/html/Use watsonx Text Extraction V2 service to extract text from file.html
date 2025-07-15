@@ -7534,7 +7534,7 @@ a.anchor-link {
 </ul>
 <h2 id="Notebook-content">Notebook content<a class="anchor-link" href="#Notebook-content">¶</a></h2><p>This notebook contains the steps and code demonstrating how to run a Text Extraction job using Python SDK and then retrieve the results in the form of JSON, Markdown, HTML and image files.</p>
 <p>Some familiarity with Python is helpful. This notebook uses Python 3.11.</p>
-<h2 id="Learning-goal">Learning goal<a class="anchor-link" href="#Learning-goal">¶</a></h2><p>The purpose of this notebook is to demonstrate the usage a Text Extraction service and <code>ibm-watsonx-ai</code> Python SDK to retrieve a text from file that is located at IBM Cloud Object Storage.</p>
+<h2 id="Learning-goal">Learning goal<a class="anchor-link" href="#Learning-goal">¶</a></h2><p>The purpose of this notebook is to demonstrate the usage a Text Extraction V2 service and <code>ibm-watsonx-ai</code> Python SDK to retrieve a text from file that is located at IBM Cloud Object Storage.</p>
 <h2 id="Contents">Contents<a class="anchor-link" href="#Contents">¶</a></h2><p>This notebook contains the following parts:</p>
 <ul>
 <li><a href="#setup">Setup</a></li>
@@ -7595,7 +7595,7 @@ a.anchor-link {
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Successfully installed wget-3.2
-Successfully installed anyio-4.9.0 certifi-2025.4.26 charset-normalizer-3.4.1 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 ibm-cos-sdk-2.14.0 ibm-cos-sdk-core-2.14.0 ibm-cos-sdk-s3transfer-2.14.0 ibm-watsonx-ai-1.3.13 idna-3.10 jmespath-1.0.1 lomond-0.3.3 numpy-2.2.5 pandas-2.2.3 pytz-2025.2 requests-2.32.2 sniffio-1.3.1 tabulate-0.9.0 tzdata-2025.2 urllib3-2.4.0
+Successfully installed anyio-4.9.0 cachetools-6.1.0 certifi-2025.7.14 charset_normalizer-3.4.2 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 ibm-cos-sdk-2.14.2 ibm-cos-sdk-core-2.14.2 ibm-cos-sdk-s3transfer-2.14.2 ibm-watsonx-ai-1.3.30 idna-3.10 jmespath-1.0.1 lomond-0.3.3 numpy-2.3.1 pandas-2.2.3 pytz-2025.2 requests-2.32.4 sniffio-1.3.1 tabulate-0.9.0 tzdata-2025.2 urllib3-2.5.0
 </pre>
 </div>
 </div>
@@ -7777,22 +7777,7 @@ Successfully installed anyio-4.9.0 certifi-2025.4.26 charset-normalizer-3.4.1 h1
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Create-connection-to-COS">Create connection to COS<a class="anchor-link" href="#Create-connection-to-COS">¶</a></h3><p>You can skip this section if you already have connection asset with IBM Cloud Object Storage.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">datasource_name</span> <span class="o">=</span> <span class="s2">"bluemixcloudobjectstorage"</span>
-<span class="n">bucket_name</span> <span class="o">=</span> <span class="s2">"PASTE YOUR BUCKET NAME HERE"</span>
-</pre></div>
-</div>
+<h3 id="Create-connection-to-COS">Create connection to COS<a class="anchor-link" href="#Create-connection-to-COS">¶</a></h3><p><strong>Tip:</strong> You need to create your connection only once.</p>
 </div>
 </div>
 </div>
@@ -7801,30 +7786,40 @@ Successfully installed anyio-4.9.0 certifi-2025.4.26 charset-normalizer-3.4.1 h1
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">cos_credentials</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"endpoint_url"</span><span class="p">:</span> <span class="s2">"PASTE YOUR ENDPOINT URL HERE"</span><span class="p">,</span>
-    <span class="s2">"apikey"</span><span class="p">:</span> <span class="s2">"PASTE YOUR API KEY HERE"</span><span class="p">,</span>
-    <span class="s2">"access_key_id"</span><span class="p">:</span> <span class="s2">"PASTE YOUR BUCKET ACCESS KEY HERE"</span><span class="p">,</span>
-    <span class="s2">"secret_access_key"</span><span class="p">:</span> <span class="s2">"PASTE YOUR BUCKET SECRET ACCESS KEY HERE"</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">bucket_name</span> <span class="o">=</span> <span class="s2">"PASTE_YOUR_BUCKET_NAME_HERE"</span>
 
-<span class="n">connection_meta_props</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">ConfigurationMetaNames</span><span class="o">.</span><span class="n">NAME</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Connection to </span><span class="si">{</span><span class="n">bucket_name</span><span class="si">}</span><span class="s2"> bucket"</span><span class="p">,</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">ConfigurationMetaNames</span><span class="o">.</span><span class="n">DATASOURCE_TYPE</span><span class="p">:</span> <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">get_datasource_type_id_by_name</span><span class="p">(</span><span class="n">datasource_name</span><span class="p">),</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">ConfigurationMetaNames</span><span class="o">.</span><span class="n">DESCRIPTION</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Connection to external bucket: </span><span class="si">{</span><span class="n">bucket_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">ConfigurationMetaNames</span><span class="o">.</span><span class="n">PROPERTIES</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"bucket"</span><span class="p">:</span> <span class="n">bucket_name</span><span class="p">,</span>
-        <span class="s2">"access_key"</span><span class="p">:</span> <span class="n">cos_credentials</span><span class="p">[</span><span class="s2">"access_key_id"</span><span class="p">],</span>
-        <span class="s2">"secret_key"</span><span class="p">:</span> <span class="n">cos_credentials</span><span class="p">[</span><span class="s2">"secret_access_key"</span><span class="p">],</span>
-        <span class="s2">"url"</span><span class="p">:</span> <span class="n">cos_credentials</span><span class="p">[</span><span class="s2">"endpoint_url"</span><span class="p">],</span>
+<span class="n">connection_asset_id</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+    <span class="s2">"Provide connection asset ID in your project. If you wish to provide your credentials by hand, hit enter: "</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">connection_asset_id</span><span class="p">:</span>
+    <span class="n">datasource_name</span> <span class="o">=</span> <span class="s2">"bluemixcloudobjectstorage"</span>
+
+    <span class="n">cos_endpoint_url</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"Please enter your COS endpoint URL and hit enter: "</span><span class="p">)</span>
+    <span class="n">cos_access_key</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"Please enter your COS access key and hit enter: "</span><span class="p">)</span>
+    <span class="n">cos_secret_key</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">"Please enter your COS secret key and hit enter: "</span><span class="p">)</span>
+
+    <span class="n">connection_meta_props</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">ConfigurationMetaNames</span><span class="o">.</span><span class="n">NAME</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Connection to </span><span class="si">{</span><span class="n">bucket_name</span><span class="si">}</span><span class="s2"> bucket"</span><span class="p">,</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">ConfigurationMetaNames</span><span class="o">.</span><span class="n">DATASOURCE_TYPE</span><span class="p">:</span> <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">get_datasource_type_id_by_name</span><span class="p">(</span>
+            <span class="n">datasource_name</span>
+        <span class="p">),</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">ConfigurationMetaNames</span><span class="o">.</span><span class="n">DESCRIPTION</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Connection to external bucket: </span><span class="si">{</span><span class="n">bucket_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">ConfigurationMetaNames</span><span class="o">.</span><span class="n">PROPERTIES</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"bucket"</span><span class="p">:</span> <span class="n">bucket_name</span><span class="p">,</span>
+            <span class="s2">"access_key"</span><span class="p">:</span> <span class="n">cos_access_key</span><span class="p">,</span>
+            <span class="s2">"secret_key"</span><span class="p">:</span> <span class="n">cos_secret_key</span><span class="p">,</span>
+            <span class="s2">"url"</span><span class="p">:</span> <span class="n">cos_endpoint_url</span><span class="p">,</span>
+        <span class="p">},</span>
     <span class="p">}</span>
-<span class="p">}</span>
 
-<span class="n">connection_details</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">meta_props</span><span class="o">=</span><span class="n">connection_meta_props</span><span class="p">)</span>
-<span class="n">connection_asset_id</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="n">connection_details</span><span class="p">)</span>
+    <span class="n">connection_details</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">meta_props</span><span class="o">=</span><span class="n">connection_meta_props</span><span class="p">)</span>
+    <span class="n">connection_asset_id</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="n">connection_details</span><span class="p">)</span>
+
+<span class="n">connection_asset_id</span>
 </pre></div>
 </div>
 </div>
@@ -7834,12 +7829,10 @@ Successfully installed anyio-4.9.0 certifi-2025.4.26 charset-normalizer-3.4.1 h1
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Creating connections...
-SUCCESS
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'d87f2870-5e14-4fb6-be73-bc9307097b39'</pre>
 </div>
 </div>
 </div>
@@ -7860,19 +7853,21 @@ SUCCESS
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ibm_watsonx_ai.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataConnection</span><span class="p">,</span> <span class="n">S3Location</span>
 
 <span class="n">document_reference</span> <span class="o">=</span> <span class="n">DataConnection</span><span class="p">(</span>
     <span class="n">connection_asset_id</span><span class="o">=</span><span class="n">connection_asset_id</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="n">S3Location</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"granite_code_models_paper.pdf"</span><span class="p">)</span>
+    <span class="n">location</span><span class="o">=</span><span class="n">S3Location</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"granite_code_models_paper.pdf"</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">results_reference</span> <span class="o">=</span> <span class="n">DataConnection</span><span class="p">(</span>
     <span class="n">connection_asset_id</span><span class="o">=</span><span class="n">connection_asset_id</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="n">S3Location</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"text_extraction_result/"</span><span class="p">)</span> <span class="c1"># Must end with / </span>
+    <span class="n">location</span><span class="o">=</span><span class="n">S3Location</span><span class="p">(</span>
+        <span class="n">bucket</span><span class="o">=</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">"text_extraction_result/"</span>
+    <span class="p">),</span>  <span class="c1"># Must end with /</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -7895,7 +7890,7 @@ SUCCESS
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">document_reference</span><span class="o">.</span><span class="n">set_client</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
@@ -7933,7 +7928,7 @@ SUCCESS
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ibm_watsonx_ai.foundation_models.extractions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextExtractionsV2</span>
@@ -7960,7 +7955,7 @@ SUCCESS
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ibm_watsonx_ai.metanames</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextExtractionsV2ParametersMetaNames</span>
@@ -8010,7 +8005,7 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
@@ -8020,7 +8015,47 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
     <span class="n">TextExtractionsV2ParametersMetaNames</span><span class="o">.</span><span class="n">AUTO_ROTATION_CORRECTION</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">TextExtractionsV2ParametersMetaNames</span><span class="o">.</span><span class="n">CREATE_EMBEDDED_IMAGES</span><span class="p">:</span> <span class="s2">"enabled_placeholder"</span><span class="p">,</span>
     <span class="n">TextExtractionsV2ParametersMetaNames</span><span class="o">.</span><span class="n">OUTPUT_DPI</span><span class="p">:</span> <span class="mi">72</span><span class="p">,</span>
-    <span class="n">TextExtractionsV2ParametersMetaNames</span><span class="o">.</span><span class="n">KVP_MODE</span><span class="p">:</span> <span class="s2">"invoice"</span><span class="p">,</span>
+    <span class="n">TextExtractionsV2ParametersMetaNames</span><span class="o">.</span><span class="n">KVP_MODE</span><span class="p">:</span> <span class="s2">"generic_with_semantic"</span><span class="p">,</span>
+    <span class="s2">"semantic_config"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"target_image_width"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+        <span class="s2">"enable_text_hints"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"enable_generic_kvp"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"schemas"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"document_type"</span><span class="p">:</span> <span class="s2">"Scientific paper"</span><span class="p">,</span>
+                <span class="s2">"document_description"</span><span class="p">:</span> <span class="s2">"Article published on arXiv regarding large language models for code generation"</span><span class="p">,</span>
+                <span class="s2">"target_image_width"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+                <span class="s2">"enable_text_hints"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">"enable_generic_kvp"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">"fields"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"title"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"default"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"example"</span><span class="p">:</span> <span class="s2">"A Cognitive Ideation Support Framework using IBM Watson Services"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="s2">"authors"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"default"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"example"</span><span class="p">:</span> <span class="s2">"Samaa Elnagar, Kweku-Muata Osei-Bryson"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="s2">"abstract"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"default"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"example"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Ideas generation is a core activity for innovation in organizations. The creativity of the generated "</span>
+                            <span class="s2">"ideas depends not only on the knowledge retrieved from the organizations' knowledge bases, but also on "</span>
+                            <span class="s2">"the external knowledge retrieved from other resources. Unfortunately, organizations often cannot "</span>
+                            <span class="s2">"efficiently utilize the knowledge in the knowledge bases due to the limited abilities of the search "</span>
+                            <span class="s2">"and retrieval mechanisms especially when dealing with unstructured data. In this paper, we present "</span>
+                            <span class="s2">"a new cognitive support framework for ideation that uses the IBM Watson DeepQA services. IBM Watson "</span>
+                            <span class="s2">"is a Question Answering system which mimics human cognitive abilities to retrieve and rank information. "</span>
+                            <span class="s2">"The proposed framework is based on the Search for Ideas in the Associative Memory (SIAM) model to help "</span>
+                            <span class="s2">"organizations develop creative ideas through discovering new relationships between retrieved data. To "</span>
+                            <span class="s2">"evaluate the effectiveness of the proposed system, the generated ideas generated are selected and "</span>
+                            <span class="s2">"assessed using a set of established creativity criteria."</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -8038,12 +8073,12 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ibm_watsonx_ai.foundation_models.extractions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextExtractionsV2ResultFormats</span>
@@ -8053,43 +8088,11 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
     <span class="n">document_reference</span><span class="o">=</span><span class="n">document_reference</span><span class="p">,</span>
     <span class="n">results_reference</span><span class="o">=</span><span class="n">results_reference</span><span class="p">,</span>
     <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
-    <span class="n">result_formats</span><span class="o">=</span><span class="n">TextExtractionsV2ResultFormats</span><span class="o">.</span><span class="n">MARKDOWN</span>
+    <span class="n">result_formats</span><span class="o">=</span><span class="n">TextExtractionsV2ResultFormats</span><span class="o">.</span><span class="n">MARKDOWN</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">single_format_job_details</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{'metadata': {'id': '2b0bcb35-c5eb-427b-acb4-abef610b90be',
-  'created_at': '2025-04-30T14:19:19.203Z',
-  'project_id': '20dfc787-5698-4cf0-a5fd-7ab5bea49be3'},
- 'entity': {'document_reference': {'type': 'connection_asset',
-   'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'},
-   'location': {'file_name': 'granite_code_models_paper.pdf',
-    'bucket': 'text-extraction-test'}},
-  'results_reference': {'type': 'connection_asset',
-   'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'},
-   'location': {'bucket': 'text-extraction-test',
-    'file_name': 'text_extraction_result/'}},
-  'parameters': {'requested_outputs': ['md'],
-   'mode': 'high_quality',
-   'ocr_mode': 'enabled',
-   'languages': ['en', 'fr'],
-   'auto_rotation_correction': True,
-   'create_embedded_images': 'enabled_placeholder',
-   'output_dpi': 72,
-   'output_tokens_and_bbox': True,
-   'kvp_mode': 'invoice'},
-  'results': {'status': 'submitted', 'number_pages_processed': 0}}}</pre>
 </div>
 </div>
 </div>
@@ -8099,10 +8102,12 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">single_format_extraction_job_id</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_job_id</span><span class="p">(</span><span class="n">extraction_details</span><span class="o">=</span><span class="n">single_format_job_details</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">single_format_extraction_job_id</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_job_id</span><span class="p">(</span>
+    <span class="n">extraction_details</span><span class="o">=</span><span class="n">single_format_job_details</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8124,7 +8129,7 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">extraction</span><span class="o">.</span><span class="n">list_jobs</span><span class="p">()</span>
@@ -8138,7 +8143,7 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -8166,8 +8171,8 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 <tbody>
 <tr>
 <th>0</th>
-<td>2b0bcb35-c5eb-427b-acb4-abef610b90be</td>
-<td>2025-04-30T14:19:19.203Z</td>
+<td>5c8c9f1b-5fea-4cc1-a363-26537e2f1adf</td>
+<td>2025-07-14T10:46:24.980Z</td>
 <td>running</td>
 </tr>
 </tbody>
@@ -8188,51 +8193,16 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">extraction</span><span class="o">.</span><span class="n">get_job_details</span><span class="p">(</span><span class="n">extraction_job_id</span><span class="o">=</span><span class="n">single_format_extraction_job_id</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{'entity': {'document_reference': {'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'},
-   'location': {'bucket': 'text-extraction-test',
-    'file_name': 'granite_code_models_paper.pdf'},
-   'type': 'connection_asset'},
-  'parameters': {'auto_rotation_correction': True,
-   'create_embedded_images': 'enabled_placeholder',
-   'kvp_mode': 'invoice',
-   'languages': ['en', 'fr'],
-   'mode': 'high_quality',
-   'ocr_mode': 'enabled',
-   'output_dpi': 72,
-   'output_tokens_and_bbox': True,
-   'requested_outputs': ['md']},
-  'results': {'number_pages_processed': 10,
-   'running_at': '2025-04-30T14:19:22.441Z',
-   'status': 'running'},
-  'results_reference': {'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'},
-   'location': {'bucket': 'text-extraction-test',
-    'file_name': 'text_extraction_result/'},
-   'type': 'connection_asset'}},
- 'metadata': {'created_at': '2025-04-30T14:19:19.203Z',
-  'id': '2b0bcb35-c5eb-427b-acb4-abef610b90be',
-  'modified_at': '2025-04-30T14:19:43.576Z',
-  'project_id': '20dfc787-5698-4cf0-a5fd-7ab5bea49be3'}}</pre>
 </div>
 </div>
 </div>
@@ -8253,7 +8223,7 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
@@ -8261,7 +8231,9 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
-    <span class="n">job_details</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_job_details</span><span class="p">(</span><span class="n">extraction_job_id</span><span class="o">=</span><span class="n">single_format_extraction_job_id</span><span class="p">)</span>
+    <span class="n">job_details</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_job_details</span><span class="p">(</span>
+        <span class="n">extraction_job_id</span><span class="o">=</span><span class="n">single_format_extraction_job_id</span>
+    <span class="p">)</span>
     <span class="n">job_status</span> <span class="o">=</span> <span class="n">job_details</span><span class="p">[</span><span class="s2">"entity"</span><span class="p">][</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"status"</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">job_status</span> <span class="o">!=</span> <span class="s2">"running"</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">job_status</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
@@ -8280,7 +8252,7 @@ OUTPUT_TOKENS_AND_BBOX    bool  N
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>...........
+<pre>...........................
 completed
 </pre>
 </div>
@@ -8314,10 +8286,12 @@ completed
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">single_results_reference</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_results_reference</span><span class="p">(</span><span class="n">single_format_extraction_job_id</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">single_results_reference</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_results_reference</span><span class="p">(</span>
+    <span class="n">single_format_extraction_job_id</span>
+<span class="p">)</span>
 <span class="n">single_results_reference</span>
 </pre></div>
 </div>
@@ -8329,9 +8303,9 @@ completed
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{'type': 'connection_asset', 'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'}, 'location': {'bucket': 'text-extraction-test', 'file_name': 'text_extraction_result/'}}</pre>
+<pre>{'type': 'connection_asset', 'connection': {'id': 'd87f2870-5e14-4fb6-be73-bc9307097b39'}, 'location': {'bucket': 'rc-byom-bucket', 'file_name': 'text_extraction_result/'}}</pre>
 </div>
 </div>
 </div>
@@ -8352,7 +8326,7 @@ completed
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">single_result_dir</span> <span class="o">=</span> <span class="s2">"single_text_extraction_results"</span>
@@ -8378,7 +8352,7 @@ completed
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">single_result_dir</span><span class="si">}</span><span class="s2">/assembly.md"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -8427,12 +8401,12 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">multiple_formats_job_details</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">run_job</span><span class="p">(</span>
@@ -8443,43 +8417,11 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
         <span class="n">TextExtractionsV2ResultFormats</span><span class="o">.</span><span class="n">ASSEMBLY_JSON</span><span class="p">,</span>
         <span class="n">TextExtractionsV2ResultFormats</span><span class="o">.</span><span class="n">HTML</span><span class="p">,</span>
         <span class="n">TextExtractionsV2ResultFormats</span><span class="o">.</span><span class="n">PAGE_IMAGES</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="p">],</span>
 <span class="p">)</span>
 
 <span class="n">multiple_formats_job_details</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{'metadata': {'id': '9a1cc04a-2929-44d9-a192-5dbd386771e6',
-  'created_at': '2025-04-30T14:25:22.841Z',
-  'project_id': '20dfc787-5698-4cf0-a5fd-7ab5bea49be3'},
- 'entity': {'document_reference': {'type': 'connection_asset',
-   'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'},
-   'location': {'bucket': 'text-extraction-test',
-    'file_name': 'granite_code_models_paper.pdf'}},
-  'results_reference': {'type': 'connection_asset',
-   'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'},
-   'location': {'bucket': 'text-extraction-test',
-    'file_name': 'text_extraction_result/'}},
-  'parameters': {'requested_outputs': ['assembly', 'html', 'page_images'],
-   'mode': 'high_quality',
-   'ocr_mode': 'enabled',
-   'languages': ['en', 'fr'],
-   'auto_rotation_correction': True,
-   'create_embedded_images': 'enabled_placeholder',
-   'output_dpi': 72,
-   'output_tokens_and_bbox': True,
-   'kvp_mode': 'invoice'},
-  'results': {'status': 'submitted', 'number_pages_processed': 0}}}</pre>
 </div>
 </div>
 </div>
@@ -8489,10 +8431,12 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">multiple_formats_extraction_job_id</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_job_id</span><span class="p">(</span><span class="n">extraction_details</span><span class="o">=</span><span class="n">multiple_formats_job_details</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">multiple_formats_extraction_job_id</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_job_id</span><span class="p">(</span>
+    <span class="n">extraction_details</span><span class="o">=</span><span class="n">multiple_formats_job_details</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8514,7 +8458,7 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">extraction</span><span class="o">.</span><span class="n">list_jobs</span><span class="p">()</span>
@@ -8528,7 +8472,7 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -8556,15 +8500,15 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 <tbody>
 <tr>
 <th>0</th>
-<td>2b0bcb35-c5eb-427b-acb4-abef610b90be</td>
-<td>2025-04-30T14:19:19.203Z</td>
-<td>completed</td>
+<td>8597df11-e225-4b8d-9fe8-1447307bf626</td>
+<td>2025-07-14T10:51:48.162Z</td>
+<td>running</td>
 </tr>
 <tr>
 <th>1</th>
-<td>9a1cc04a-2929-44d9-a192-5dbd386771e6</td>
-<td>2025-04-30T14:25:22.841Z</td>
-<td>running</td>
+<td>5c8c9f1b-5fea-4cc1-a363-26537e2f1adf</td>
+<td>2025-07-14T10:46:24.980Z</td>
+<td>completed</td>
 </tr>
 </tbody>
 </table>
@@ -8584,51 +8528,16 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">extraction</span><span class="o">.</span><span class="n">get_job_details</span><span class="p">(</span><span class="n">extraction_job_id</span><span class="o">=</span><span class="n">multiple_formats_extraction_job_id</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[25]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{'entity': {'document_reference': {'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'},
-   'location': {'bucket': 'text-extraction-test',
-    'file_name': 'granite_code_models_paper.pdf'},
-   'type': 'connection_asset'},
-  'parameters': {'auto_rotation_correction': True,
-   'create_embedded_images': 'enabled_placeholder',
-   'kvp_mode': 'invoice',
-   'languages': ['en', 'fr'],
-   'mode': 'high_quality',
-   'ocr_mode': 'enabled',
-   'output_dpi': 72,
-   'output_tokens_and_bbox': True,
-   'requested_outputs': ['assembly', 'html', 'page_images']},
-  'results': {'number_pages_processed': 0,
-   'running_at': '2025-04-30T14:25:24.607Z',
-   'status': 'running'},
-  'results_reference': {'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'},
-   'location': {'bucket': 'text-extraction-test',
-    'file_name': 'text_extraction_result/'},
-   'type': 'connection_asset'}},
- 'metadata': {'created_at': '2025-04-30T14:25:22.841Z',
-  'id': '9a1cc04a-2929-44d9-a192-5dbd386771e6',
-  'modified_at': '2025-04-30T14:25:30.259Z',
-  'project_id': '20dfc787-5698-4cf0-a5fd-7ab5bea49be3'}}</pre>
 </div>
 </div>
 </div>
@@ -8649,7 +8558,7 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
@@ -8657,7 +8566,9 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
-    <span class="n">job_details</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_job_details</span><span class="p">(</span><span class="n">extraction_job_id</span><span class="o">=</span><span class="n">multiple_formats_extraction_job_id</span><span class="p">)</span>
+    <span class="n">job_details</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_job_details</span><span class="p">(</span>
+        <span class="n">extraction_job_id</span><span class="o">=</span><span class="n">multiple_formats_extraction_job_id</span>
+    <span class="p">)</span>
     <span class="n">job_status</span> <span class="o">=</span> <span class="n">job_details</span><span class="p">[</span><span class="s2">"entity"</span><span class="p">][</span><span class="s2">"results"</span><span class="p">][</span><span class="s2">"status"</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">job_status</span> <span class="o">!=</span> <span class="s2">"running"</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">job_status</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
@@ -8676,7 +8587,7 @@ Large Language Models (LLMs) trained on code are revolutionizing the software de
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>..............
+<pre>.........................
 completed
 </pre>
 </div>
@@ -8710,10 +8621,12 @@ completed
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">multiple_results_reference</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_results_reference</span><span class="p">(</span><span class="n">multiple_formats_extraction_job_id</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">multiple_results_reference</span> <span class="o">=</span> <span class="n">extraction</span><span class="o">.</span><span class="n">get_results_reference</span><span class="p">(</span>
+    <span class="n">multiple_formats_extraction_job_id</span>
+<span class="p">)</span>
 <span class="n">multiple_results_reference</span>
 </pre></div>
 </div>
@@ -8725,9 +8638,9 @@ completed
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[27]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[26]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{'type': 'connection_asset', 'connection': {'id': '631b67d7-ec99-4526-8af9-2aa902a1b25b'}, 'location': {'bucket': 'text-extraction-test', 'file_name': 'text_extraction_result/'}}</pre>
+<pre>{'type': 'connection_asset', 'connection': {'id': 'd87f2870-5e14-4fb6-be73-bc9307097b39'}, 'location': {'bucket': 'rc-byom-bucket', 'file_name': 'text_extraction_result/'}}</pre>
 </div>
 </div>
 </div>
@@ -8737,7 +8650,7 @@ completed
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">multiple_results_dir</span> <span class="o">=</span> <span class="s2">"multiple_text_extraction_results"</span>
@@ -8763,17 +8676,46 @@ completed
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.core.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_markdown</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_raw_text_for_key</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">page_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">iterator</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">item</span><span class="p">[</span><span class="s2">"value"</span><span class="p">][</span><span class="s2">"raw_text"</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">extracted_assembly_json</span><span class="p">[</span><span class="s2">"kvps"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s2">"key"</span><span class="p">][</span><span class="s2">"semantic_label"</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span>
+        <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="s2">"value"</span><span class="p">][</span><span class="s2">"bbox"</span><span class="p">][</span><span class="s2">"page_number"</span><span class="p">]</span> <span class="o">==</span> <span class="n">page_number</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">iterator</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">multiple_results_dir</span><span class="si">}</span><span class="s2">/assembly.json"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
     <span class="n">extracted_assembly_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 
+<span class="c1"># Available thanks to semantic configuration</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">get_raw_text_for_key</span><span class="p">(</span><span class="s2">"title"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">authors</span> <span class="o">=</span> <span class="n">get_raw_text_for_key</span><span class="p">(</span><span class="s2">"authors"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">abstract</span> <span class="o">=</span> <span class="n">get_raw_text_for_key</span><span class="p">(</span><span class="s2">"abstract"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
 <span class="n">tokens</span> <span class="o">=</span> <span class="n">extracted_assembly_json</span><span class="p">[</span><span class="s2">"all_structures"</span><span class="p">][</span><span class="s2">"tokens"</span><span class="p">]</span>
-<span class="n">result_text</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result_text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
+<span class="n">complete_text</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">)</span>
+
+<span class="n">display_markdown</span><span class="p">(</span>
+    <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">"### Title</span><span class="se">\n</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"### Authors</span><span class="se">\n</span><span class="si">{</span><span class="n">authors</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"### Abstract</span><span class="se">\n</span><span class="si">{</span><span class="n">abstract</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"### Complete text (first 1000 characters)</span><span class="se">\n</span><span class="si">{</span><span class="n">complete_text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+    <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8785,9 +8727,11 @@ completed
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Granite Code Models: A Family of Open Foundation Models for Code Intelligence Mayank Mishra⋆ Matt Stallone⋆ Gaoyuan Zhang⋆ Yikang Shen Aditya Prasad Adriana Meza Soria Michele Merler Parameswaran Selvam Saptha Surendran Shivdeep Singh Manish Sethi Xuan-Hong Dang Pengyuan Li Kun-Lung Wu Syed Zawad Andrew Coleman Matthew White Mark Lewis Raju Pavuluri Yan Koyfman Boris Lublinsky Maximilien de Bayser Ibrahim Abdelaziz Kinjal Basu Mayank Agarwal Yi Zhou Chris Johnson Aanchal Goyal Hima Patel Yousaf Shah Petros Zerfos Heiko Ludwig Asim Munawar Maxwell Crouse Pavan Kapanipathi Shweta Salaria Bob Calio Sophia Wen Seetharami Seelam Brian Belgodere Carlos Fonseca Amith Singhee Nirmit Desai David D. Cox Ruchir Puri† Rameswar Panda† IBM Research ⋆Equal Contribution †Corresponding Authors ruchir@us.ibm.com, rpanda@ibm.com Abstract Large Language Models (LLMs) trained on code are revolutionizing the software development process. Increasingly, code LLMs are being inte grated into software developmen
-</pre>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
+<h3 id="Title">Title<a class="anchor-link" href="#Title">¶</a></h3><p>Granite Code Models: A Family of Open Foundation Models for Code Intelligence</p>
+<h3 id="Authors">Authors<a class="anchor-link" href="#Authors">¶</a></h3><p>Mayank Mishra⋆ Matt Stallone⋆ Gaoyuan Zhang⋆ Yikang Shen Aditya Prasad Adriana Meza Soria Michele Merler Parameswaran Selvam Saptha Surendran Shivdeep Singh Manish Sethi Xuan-Hong Dang Pengyuan Li Kun-Lung Wu Syed Zawad Andrew Coleman Matthew White Mark Lewis Raju Pavuluri Yan Koyfman Boris Lublinsky Maximilien de Bayser Ibrahim Abdelaziz Kinjal Basu Mayank Agarwal Yi Zhou Chris Johnson Aanchal Goyal Hima Patel Yousaf Shah Petros Zerfos Heiko Ludwig Asim Munawar Maxwell Crouse Pavan Kapanipathi Shweta Belgodere Carlos Fonseca Amith Singhee Nirmit Desai David D. Cox Ruchir Puri† Rameswar Panda†</p>
+<h3 id="Abstract">Abstract<a class="anchor-link" href="#Abstract">¶</a></h3><p>Large Language Models (LLMs) trained on code are revolutionizing the software development process. Increasingly, code LLMs are being into software development environments to improve the productivity of human programmers, and LLM-based agents are beginning to show promise for handling complex tasks autonomously. Realizing the full potential of code LLMs requires a wide range of capabilities, including code generation, fixing bugs, explaining and documenting code, maintaining repositories, and more. In this work, we introduce the Granite series of decoder-only code models for code generative tasks, trained with code written in 116 programming languages. The Granite Code models family can be used in a wide range of applications, from complex application modernization tasks to on-device memory-constrained use cases. Evaluation on a comprehensive set of tasks demonstrates that Granite Code models consistently reaches state-of-the-art performance among available open-source code LLMs. The Granite Code model family was optimized for enterprise software development workflows and performs well across a range of coding tasks (e.g., code generation, fixing and explanation), making it a versatile “all around” code model. We release all our Granite Code models under an Apache 2.0 license for both research and commercial use.</p>
+<h3 id="Complete-text-(first-1000-characters)">Complete text (first 1000 characters)<a class="anchor-link" href="#Complete-text-(first-1000-characters)">¶</a></h3><p>Granite Code Models: A Family of Open Foundation Models for Code Intelligence Mayank Mishra⋆ Matt Stallone⋆ Gaoyuan Zhang⋆ Yikang Shen Aditya Prasad Adriana Meza Soria Michele Merler Parameswaran Selvam Saptha Surendran Shivdeep Singh Manish Sethi Xuan-Hong Dang Pengyuan Li Kun-Lung Wu Syed Zawad Andrew Coleman Matthew White Mark Lewis Raju Pavuluri Yan Koyfman Boris Lublinsky Maximilien de Bayser Ibrahim Abdelaziz Kinjal Basu Mayank Agarwal Yi Zhou Chris Johnson Aanchal Goyal Hima Patel Yousaf Shah Petros Zerfos Heiko Ludwig Asim Munawar Maxwell Crouse Pavan Kapanipathi Shweta Salaria Bob Calio Sophia Wen Seetharami Seelam Brian Belgodere Carlos Fonseca Amith Singhee Nirmit Desai David D. Cox Ruchir Puri† Rameswar Panda† IBM Research ⋆Equal Contribution †Corresponding Authors ruchir@us.ibm.com, rpanda@ibm.com Abstract Large Language Models (LLMs) trained on code are revolutionizing the software development process. Increasingly, code LLMs are being inte grated into software developmen</p>
 </div>
 </div>
 </div>
@@ -8797,7 +8741,7 @@ completed
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.core.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_html</span>
@@ -8834,7 +8778,7 @@ completed
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [31]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.core.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_png</span>
